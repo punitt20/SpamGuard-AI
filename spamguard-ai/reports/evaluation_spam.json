@@ -1,0 +1,72 @@
+{
+  "task": "spam",
+  "task_label": "SMS spam",
+  "selected_model": "Linear SVM (calibrated)",
+  "model_version": "1.1.0",
+  "trained_at": "2026-11-22T13:42:18Z",
+  "evaluated_at": "2026-11-22T13:42:48+00:00",
+  "model_path": "models/spam_classifier.pkl",
+  "test_path": "data/processed/sms_test.csv",
+  "test_rows": 1032,
+  "positive_class": "SPAM",
+  "negative_class": "HAM",
+  "decision_threshold": 0.4,
+  "metrics": {
+    "accuracy": 0.9835,
+    "precision": 0.937,
+    "recall": 0.9297,
+    "f1_score": 0.9333,
+    "macro_f1": 0.962,
+    "roc_auc": 0.993,
+    "tn": 896,
+    "fp": 8,
+    "fn": 9,
+    "tp": 119,
+    "inference_seconds": 0.0326,
+    "probability_supported": true
+  },
+  "confusion_matrix": {
+    "labels": [
+      "HAM",
+      "SPAM"
+    ],
+    "matrix": [
+      [
+        896,
+        8
+      ],
+      [
+        9,
+        119
+      ]
+    ]
+  },
+  "classification_report": {
+    "HAM": {
+      "precision": 0.9901,
+      "recall": 0.9912,
+      "f1-score": 0.9906,
+      "support": 904.0
+    },
+    "SPAM": {
+      "precision": 0.937,
+      "recall": 0.9297,
+      "f1-score": 0.9333,
+      "support": 128.0
+    },
+    "accuracy": 0.9835,
+    "macro avg": {
+      "precision": 0.9635,
+      "recall": 0.9604,
+      "f1-score": 0.962,
+      "support": 1032.0
+    },
+    "weighted avg": {
+      "precision": 0.9835,
+      "recall": 0.9835,
+      "f1-score": 0.9835,
+      "support": 1032.0
+    }
+  },
+  "note": "Evaluation of the already-saved pipeline. No model fitting, tuning or test-set-driven selection occurred in this script."
+}

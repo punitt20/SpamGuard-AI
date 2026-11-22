@@ -1,0 +1,503 @@
+{
+  "generated_at": "2026-11-18T10:07:17+00:00",
+  "note": "Descriptive analysis of the full cleaned corpora. No classifier fitting or test-set-driven decisions occur here.",
+  "sms": {
+    "raw_rows": 5572,
+    "missing_messages": 0,
+    "duplicate_messages": 403,
+    "raw_class_counts": {
+      "ham": 4825,
+      "spam": 747
+    },
+    "clean_rows": 5158,
+    "duplicates_removed": 414,
+    "class_counts": {
+      "HAM": 4516,
+      "SPAM": 642
+    },
+    "conflicting_label_messages": 0,
+    "rows": 5158,
+    "class_distribution": {
+      "HAM": 4516,
+      "SPAM": 642
+    },
+    "imbalance_ratio": 7.03,
+    "length_chars": {
+      "mean": 79.2,
+      "median": 61.0,
+      "std": 58.4,
+      "min": 2,
+      "max": 910,
+      "p95": 160
+    },
+    "length_by_class": {
+      "HAM": {
+        "mean": 70.9,
+        "median": 53.0
+      },
+      "SPAM": {
+        "mean": 137.4,
+        "median": 148.0
+      }
+    },
+    "train_rows": 4126,
+    "test_rows": 1032,
+    "train_class_counts": {
+      "HAM": 3612,
+      "SPAM": 514
+    },
+    "test_class_counts": {
+      "HAM": 904,
+      "SPAM": 128
+    },
+    "test_size": 0.2,
+    "random_state": 42,
+    "top_spam_words": [
+      [
+        "call",
+        303
+      ],
+      [
+        "free",
+        191
+      ],
+      [
+        "txt",
+        134
+      ],
+      [
+        "stop",
+        113
+      ],
+      [
+        "text",
+        107
+      ],
+      [
+        "mobile",
+        106
+      ],
+      [
+        "reply",
+        96
+      ],
+      [
+        "claim",
+        95
+      ],
+      [
+        "prize",
+        79
+      ],
+      [
+        "cash",
+        64
+      ],
+      [
+        "send",
+        59
+      ],
+      [
+        "urgent",
+        57
+      ],
+      [
+        "won",
+        56
+      ],
+      [
+        "nokia",
+        53
+      ],
+      [
+        "msg",
+        50
+      ],
+      [
+        "please",
+        49
+      ],
+      [
+        "service",
+        49
+      ],
+      [
+        "contact",
+        49
+      ],
+      [
+        "win",
+        47
+      ],
+      [
+        "week",
+        43
+      ]
+    ],
+    "top_ham_words": [
+      [
+        "i'm",
+        370
+      ],
+      [
+        "ok",
+        254
+      ],
+      [
+        "go",
+        247
+      ],
+      [
+        "good",
+        217
+      ],
+      [
+        "come",
+        214
+      ],
+      [
+        "call",
+        192
+      ],
+      [
+        "time",
+        187
+      ],
+      [
+        "love",
+        185
+      ],
+      [
+        "day",
+        185
+      ],
+      [
+        "going",
+        164
+      ],
+      [
+        "lor",
+        159
+      ],
+      [
+        "home",
+        156
+      ],
+      [
+        "need",
+        154
+      ],
+      [
+        "da",
+        142
+      ],
+      [
+        "i'll",
+        137
+      ],
+      [
+        "think",
+        126
+      ],
+      [
+        "don't",
+        124
+      ],
+      [
+        "today",
+        123
+      ],
+      [
+        "sorry",
+        122
+      ],
+      [
+        "take",
+        121
+      ]
+    ],
+    "top_spam_bigrams": [
+      [
+        "please call",
+        40
+      ],
+      [
+        "po box",
+        21
+      ],
+      [
+        "call landline",
+        21
+      ],
+      [
+        "guaranteed call",
+        20
+      ],
+      [
+        "prize guaranteed",
+        19
+      ],
+      [
+        "send stop",
+        18
+      ],
+      [
+        "urgent mobile",
+        17
+      ],
+      [
+        "national rate",
+        17
+      ],
+      [
+        "selected receive",
+        16
+      ],
+      [
+        "reply call",
+        16
+      ],
+      [
+        "txt stop",
+        16
+      ],
+      [
+        "call land",
+        16
+      ]
+    ],
+    "figures": {
+      "class_distribution": "reports/figures/sms_class_distribution.png",
+      "message_lengths": "reports/figures/sms_message_length_distribution.png",
+      "length_by_class": "reports/figures/sms_length_by_class.png",
+      "top_spam_words": "reports/figures/sms_top_spam_words.png",
+      "top_ham_words": "reports/figures/sms_top_ham_words.png",
+      "top_spam_bigrams": "reports/figures/sms_top_spam_bigrams.png"
+    }
+  },
+  "phishing": {
+    "raw_rows": 18650,
+    "missing_messages": 16,
+    "duplicate_messages": 1112,
+    "raw_class_counts": {
+      "Safe Email": 11322,
+      "Phishing Email": 7328
+    },
+    "clean_rows": 17521,
+    "duplicates_removed": 1129,
+    "conflicting_label_messages": 533,
+    "truncated_messages": 87,
+    "max_text_chars": 20000,
+    "class_counts": {
+      "LEGITIMATE": 10978,
+      "PHISHING": 6543
+    },
+    "rows": 17521,
+    "class_distribution": {
+      "LEGITIMATE": 10978,
+      "PHISHING": 6543
+    },
+    "imbalance_ratio": 1.68,
+    "length_chars": {
+      "mean": 1771.4,
+      "median": 915.0,
+      "std": 2654.4,
+      "min": 4,
+      "max": 20000,
+      "p95": 6434
+    },
+    "length_by_class": {
+      "LEGITIMATE": {
+        "mean": 1848.2,
+        "median": 1021.0
+      },
+      "PHISHING": {
+        "mean": 1642.5,
+        "median": 763.0
+      }
+    },
+    "train_rows": 14016,
+    "test_rows": 3505,
+    "train_class_counts": {
+      "LEGITIMATE": 8782,
+      "PHISHING": 5234
+    },
+    "test_class_counts": {
+      "LEGITIMATE": 2196,
+      "PHISHING": 1309
+    },
+    "test_size": 0.2,
+    "random_state": 42,
+    "top_phishing_words": [
+      [
+        "email",
+        5013
+      ],
+      [
+        "com",
+        4511
+      ],
+      [
+        "free",
+        4141
+      ],
+      [
+        "mail",
+        3713
+      ],
+      [
+        "company",
+        3693
+      ],
+      [
+        "money",
+        3674
+      ],
+      [
+        "please",
+        3641
+      ],
+      [
+        "information",
+        3603
+      ],
+      [
+        "business",
+        3374
+      ],
+      [
+        "time",
+        3083
+      ],
+      [
+        "http",
+        3006
+      ],
+      [
+        "report",
+        2989
+      ],
+      [
+        "click",
+        2791
+      ],
+      [
+        "order",
+        2505
+      ],
+      [
+        "people",
+        2298
+      ],
+      [
+        "address",
+        2290
+      ],
+      [
+        "send",
+        2252
+      ],
+      [
+        "list",
+        2182
+      ],
+      [
+        "name",
+        2108
+      ],
+      [
+        "internet",
+        1953
+      ]
+    ],
+    "top_legitimate_words": [
+      [
+        "enron",
+        14041
+      ],
+      [
+        "ect",
+        10899
+      ],
+      [
+        "com",
+        6012
+      ],
+      [
+        "university",
+        6005
+      ],
+      [
+        "language",
+        5867
+      ],
+      [
+        "please",
+        5866
+      ],
+      [
+        "hou",
+        5218
+      ],
+      [
+        "information",
+        4976
+      ],
+      [
+        "subject",
+        4667
+      ],
+      [
+        "list",
+        4535
+      ],
+      [
+        "mail",
+        4299
+      ],
+      [
+        "time",
+        4113
+      ],
+      [
+        "pm",
+        3673
+      ],
+      [
+        "re",
+        3566
+      ],
+      [
+        "message",
+        3315
+      ],
+      [
+        "conference",
+        3168
+      ],
+      [
+        "linux",
+        3013
+      ],
+      [
+        "cc",
+        3005
+      ],
+      [
+        "linguistics",
+        2964
+      ],
+      [
+        "thanks",
+        2873
+      ]
+    ],
+    "figures": {
+      "class_distribution": "reports/figures/phishing_class_distribution.png",
+      "message_lengths": "reports/figures/phishing_message_length_distribution.png",
+      "length_by_class": "reports/figures/phishing_length_by_class.png",
+      "top_phishing_words": "reports/figures/phishing_top_phishing_words.png",
+      "top_legitimate_words": "reports/figures/phishing_top_legitimate_words.png"
+    }
+  }
+}

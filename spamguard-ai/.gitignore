@@ -1,0 +1,30 @@
+# Python environments and bytecode
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Test and tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local runtime artifacts
+instance/logs/
+instance/*.db
+instance/*.pid
+*.log
+
+# Editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+
+# Large optional phishing corpus is not used by the deployed SMS model.
+# Recreate it with training/download_dataset.py when needed for experiments.
+data/raw/Phishing_Email.csv
+data/raw/sms+spam+collection.zip
+data/processed/phishing_*.csv

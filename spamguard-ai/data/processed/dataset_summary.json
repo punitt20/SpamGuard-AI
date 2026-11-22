@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-11-18T09:48:49+00:00",
+  "preprocessing_version": "1.0.0",
+  "sms": {
+    "raw_rows": 5572,
+    "missing_messages": 0,
+    "duplicate_messages": 403,
+    "raw_class_counts": {
+      "ham": 4825,
+      "spam": 747
+    },
+    "clean_rows": 5158,
+    "duplicates_removed": 414,
+    "class_counts": {
+      "HAM": 4516,
+      "SPAM": 642
+    },
+    "conflicting_label_messages": 0,
+    "train_rows": 4126,
+    "test_rows": 1032,
+    "train_class_counts": {
+      "HAM": 3612,
+      "SPAM": 514
+    },
+    "test_class_counts": {
+      "HAM": 904,
+      "SPAM": 128
+    },
+    "test_size": 0.2,
+    "random_state": 42,
+    "dataset": "SMS Spam Collection v.1",
+    "source": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+    "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d"
+  },
+  "phishing": {
+    "raw_rows": 18650,
+    "missing_messages": 16,
+    "duplicate_messages": 1112,
+    "raw_class_counts": {
+      "Safe Email": 11322,
+      "Phishing Email": 7328
+    },
+    "clean_rows": 17521,
+    "duplicates_removed": 1129,
+    "conflicting_label_messages": 533,
+    "truncated_messages": 87,
+    "max_text_chars": 20000,
+    "class_counts": {
+      "LEGITIMATE": 10978,
+      "PHISHING": 6543
+    },
+    "train_rows": 14016,
+    "test_rows": 3505,
+    "train_class_counts": {
+      "LEGITIMATE": 8782,
+      "PHISHING": 5234
+    },
+    "test_class_counts": {
+      "LEGITIMATE": 2196,
+      "PHISHING": 1309
+    },
+    "test_size": 0.2,
+    "random_state": 42,
+    "dataset": "Phishing Email Dataset (Hugging Face mirror)",
+    "source": "https://huggingface.co/datasets/zefang-liu/phishing-email-dataset",
+    "raw_sha256": "18ef4fff1acb8986f0ab01e83ede6025420c829656af5a377560fce17e153b97"
+  }
+}

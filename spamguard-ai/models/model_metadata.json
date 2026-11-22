@@ -1,0 +1,292 @@
+{
+  "task": "spam",
+  "task_label": "SMS spam detection",
+  "input_domain": "SMS and short text messages",
+  "model_name": "Linear SVM (calibrated)",
+  "model_version": "1.1.0",
+  "trained_at": "2026-11-22T13:42:18Z",
+  "probability_supported": true,
+  "selection_criterion": "Training-only out-of-fold F1 for the positive class after selecting a probability threshold from 0.10 to 0.90; precision is the tie-breaker. The held-out test split is reserved for final reporting. Probability-capable models only.",
+  "selection_rationale": "Selected Linear SVM (calibrated) by its highest training-only out-of-fold F1 (0.9476) at a probability threshold of 0.40; precision was used as a tie-breaker. The held-out test split was not used for model or threshold selection and is reserved for the final reported metrics. Only probability-capable models are eligible.",
+  "class_labels": {
+    "0": "HAM",
+    "1": "SPAM"
+  },
+  "positive_class": "SPAM",
+  "dataset": {
+    "name": "SMS Spam Collection v.1",
+    "source": "https://archive.ics.uci.edu/dataset/228/sms+spam+collection",
+    "license_note": "UCI SMS Spam Collection: research use with citation; see dataset readme.",
+    "doi": "10.24432/C5CC84",
+    "citation": "Almeida, T. A., G\u00f3mez Hidalgo, J. M., & Yamakami, A. (2011). Contributions to the Study of SMS Spam Filtering.",
+    "raw_rows": 5572,
+    "clean_rows": 5158,
+    "duplicates_removed": 414,
+    "missing_messages": 0,
+    "conflicting_label_messages": 0,
+    "truncated_messages": 0,
+    "max_text_chars": 20000,
+    "raw_sha256": "7d039a24a6083ed9ef0f806ebad56bbb976e3aeb8de05669173bfdc4996c239d",
+    "train_rows": 4126,
+    "test_rows": 1032,
+    "train_class_counts": {
+      "HAM": 3612,
+      "SPAM": 514
+    },
+    "test_class_counts": {
+      "HAM": 904,
+      "SPAM": 128
+    }
+  },
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratified": true
+  },
+  "features": {
+    "method": "TF-IDF",
+    "max_features": 5000,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 2,
+    "max_df": 0.95,
+    "sublinear_tf": true,
+    "token_pattern": "(?u)\\b\\w+\\b",
+    "fit_on": "training split only",
+    "rationale": "min_df=2 removes terms seen once in the training corpus, limiting vocabulary noise; max_df=0.95 suppresses near-universal terms. Bigrams capture phrases such as 'free prize' while unigrams preserve recall."
+  },
+  "preprocessing": {
+    "version": "1.0.0",
+    "remove_stopwords": false,
+    "note": "Lower-casing, HTML/entity handling, URL placeholder + hostname tokens, e-mail placeholder, currency token, punctuation/whitespace normalisation, and signal flags for excessive exclamation/uppercase. Stopword removal is available but disabled so urgency words such as 'now' are retained."
+  },
+  "pipeline_steps": [
+    "TextNormalizer (custom, shared with inference)",
+    "TfidfVectorizer (max_features=5000, ngram_range=(1,2))",
+    "Classifier: CalibratedClassifierCV"
+  ],
+  "metrics": {
+    "accuracy": 0.9835,
+    "precision": 0.937,
+    "recall": 0.9297,
+    "f1_score": 0.9333,
+    "macro_precision": 0.9635,
+    "macro_recall": 0.9604,
+    "macro_f1": 0.962,
+    "weighted_f1": 0.9835,
+    "roc_auc": 0.993,
+    "tn": 896,
+    "fp": 8,
+    "fn": 9,
+    "tp": 119,
+    "inference_seconds": 0.0289,
+    "probability_supported": true,
+    "decision_threshold": 0.4
+  },
+  "classification_report": {
+    "HAM": {
+      "precision": 0.9900552486187846,
+      "recall": 0.9911504424778761,
+      "f1-score": 0.9906025428413489,
+      "support": 904.0
+    },
+    "SPAM": {
+      "precision": 0.937007874015748,
+      "recall": 0.9296875,
+      "f1-score": 0.9333333333333333,
+      "support": 128.0
+    },
+    "accuracy": 0.9835271317829457,
+    "macro avg": {
+      "precision": 0.9635315613172664,
+      "recall": 0.960418971238938,
+      "f1-score": 0.9619679380873412,
+      "support": 1032.0
+    },
+    "weighted avg": {
+      "precision": 0.9834757292881754,
+      "recall": 0.9835271317829457,
+      "f1-score": 0.9834993850729128,
+      "support": 1032.0
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "HAM",
+      "SPAM"
+    ],
+    "matrix": [
+      [
+        896,
+        8
+      ],
+      [
+        9,
+        119
+      ]
+    ]
+  },
+  "best_params": {
+    "C": 1.0,
+    "class_weight": "balanced"
+  },
+  "classification_threshold": 0.4,
+  "cv_f1_mean": null,
+  "cv_f1_std": null,
+  "comparison": [
+    {
+      "model_name": "Multinomial Naive Bayes",
+      "probability_supported": true,
+      "accuracy": 0.9864,
+      "precision": 0.9597,
+      "recall": 0.9297,
+      "f1_score": 0.9444,
+      "macro_precision": 0.9749,
+      "macro_recall": 0.9621,
+      "macro_f1": 0.9684,
+      "weighted_f1": 0.9863,
+      "roc_auc": 0.9866,
+      "tn": 899,
+      "fp": 5,
+      "fn": 9,
+      "tp": 119,
+      "cv_f1_mean": 0.9358,
+      "cv_f1_std": 0.0089,
+      "cv_f1_selected_threshold": 0.9393,
+      "cv_precision_selected_threshold": 0.9613,
+      "cv_recall_selected_threshold": 0.9183,
+      "decision_threshold": 0.35,
+      "training_time_seconds": 3.07,
+      "inference_seconds": 0.0277,
+      "best_params": {
+        "alpha": 0.1
+      },
+      "is_selected": false,
+      "notes": "Fast probabilistic baseline; alpha tuned by training-only CV."
+    },
+    {
+      "model_name": "Logistic Regression",
+      "probability_supported": true,
+      "accuracy": 0.9816,
+      "precision": 0.936,
+      "recall": 0.9141,
+      "f1_score": 0.9249,
+      "macro_precision": 0.9619,
+      "macro_recall": 0.9526,
+      "macro_f1": 0.9572,
+      "weighted_f1": 0.9815,
+      "roc_auc": 0.994,
+      "tn": 896,
+      "fp": 8,
+      "fn": 11,
+      "tp": 117,
+      "cv_f1_mean": 0.9448,
+      "cv_f1_std": 0.0137,
+      "cv_f1_selected_threshold": 0.9461,
+      "cv_precision_selected_threshold": 0.9713,
+      "cv_recall_selected_threshold": 0.9222,
+      "decision_threshold": 0.55,
+      "training_time_seconds": 1.33,
+      "inference_seconds": 0.0268,
+      "best_params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "is_selected": false,
+      "notes": "L2-regularised linear model with native probability estimates."
+    },
+    {
+      "model_name": "Linear SVM",
+      "probability_supported": false,
+      "accuracy": 0.9835,
+      "precision": 0.9512,
+      "recall": 0.9141,
+      "f1_score": 0.9323,
+      "macro_precision": 0.9696,
+      "macro_recall": 0.9537,
+      "macro_f1": 0.9614,
+      "weighted_f1": 0.9834,
+      "roc_auc": null,
+      "tn": 898,
+      "fp": 6,
+      "fn": 11,
+      "tp": 117,
+      "cv_f1_mean": 0.9462,
+      "cv_f1_std": 0.012,
+      "cv_f1_selected_threshold": 0.9462,
+      "cv_precision_selected_threshold": null,
+      "cv_recall_selected_threshold": null,
+      "decision_threshold": null,
+      "training_time_seconds": 0.92,
+      "inference_seconds": 0.027,
+      "best_params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "is_selected": false,
+      "notes": "Decision-function margin only; raw scores are not probabilities and are excluded from the probability-based selection."
+    },
+    {
+      "model_name": "Linear SVM (calibrated)",
+      "probability_supported": true,
+      "accuracy": 0.9835,
+      "precision": 0.937,
+      "recall": 0.9297,
+      "f1_score": 0.9333,
+      "macro_precision": 0.9635,
+      "macro_recall": 0.9604,
+      "macro_f1": 0.962,
+      "weighted_f1": 0.9835,
+      "roc_auc": 0.993,
+      "tn": 896,
+      "fp": 8,
+      "fn": 9,
+      "tp": 119,
+      "cv_f1_mean": null,
+      "cv_f1_std": null,
+      "cv_f1_selected_threshold": 0.9476,
+      "cv_precision_selected_threshold": 0.9638,
+      "cv_recall_selected_threshold": 0.9319,
+      "decision_threshold": 0.4,
+      "training_time_seconds": 0.24,
+      "inference_seconds": 0.0289,
+      "best_params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "is_selected": true,
+      "notes": "Platt-sigmoid calibration of the tuned Linear SVM; calibration uses the training split only. Training time excludes the SVM grid search."
+    }
+  ],
+  "figures": {
+    "model_comparison": "reports/figures/model_comparison_spam.png",
+    "confusion_matrices": "reports/figures/confusion_matrices_spam.png",
+    "roc_curves": "reports/figures/roc_curves_spam.png",
+    "selected_model": "Linear SVM (calibrated)"
+  },
+  "artifacts": {
+    "model_path": "models/spam_classifier.pkl",
+    "metadata_path": "models/model_metadata.json",
+    "comparison_csv": "reports/model_comparison.csv",
+    "model_sha256": "ea4345461e47f3ff333922ba4099d1cef0b6234841f2c746b57c775061892ae6",
+    "model_size_bytes": 228150
+  },
+  "environment": {
+    "python": "3.12.14",
+    "scikit_learn": "1.9.1",
+    "pandas": "2.3.3",
+    "numpy": "2.5.5",
+    "joblib": "1.6.0",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "training_command": "python training/train.py --task spam",
+  "limitations": [
+    "Trained on English SMS messages (mostly UK/Singapore sources).",
+    "Class imbalance means minority-class errors deserve attention despite high accuracy.",
+    "The model detects statistical spam patterns; it cannot verify sender identity or links.",
+    "Probability estimates are calibrated only where the selected algorithm supports it.",
+    "Keyword/URL heuristics are not used by the classifier and do not override it."
+  ]
+}

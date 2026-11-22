@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_heading %}
+
+{% block title %}Analytics · SpamGuard AI{% endblock %}
+
+{% block content %}
+{{ page_heading(
+  "Evaluation overview",
+  "Model evaluation",
+  "Compare the trained classifier against the candidate models from its saved evaluation. Individual messages are processed locally and are not retained."
+) }}
+
+<div class="row g-4">
+  <div class="col-12">
+    <div id="analyticsStats" class="row g-3"></div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h5 card-title">Evaluation snapshot</h2>
+        <div id="evaluationSnapshot" class="mb-4"></div>
+        <h2 class="h5 card-title">Candidate model comparison</h2>
+        <p class="text-muted small">Test scores are from the held-out split; CV scores and cutoffs are selected on training data. This page does not show live usage totals.</p>
+        <div id="analyticsComparison"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h5 card-title">Dataset & error profile</h2>
+        <div id="datasetProfile"></div>
+        <hr class="my-4">
+        <div id="confusionMatrix"></div>
+        <hr class="my-4">
+        <h2 class="h5 card-title">Privacy by default</h2>
+        <p class="text-muted mb-0">Messages are analyzed for the current request and are not written to an analysis history. This page shows saved training evaluation only.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analytics.js', v='2') }}"></script>
+{% endblock %}

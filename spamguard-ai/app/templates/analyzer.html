@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_heading %}
+
+{% block title %}Message Analyzer · SpamGuard AI{% endblock %}
+
+{% block content %}
+<div class="row g-4" id="analyzerRoot" data-max-length="{{ max_message_length }}">
+  <!-- Left column: input -->
+  <div class="col-lg-8">
+    {{ page_heading(
+      "Message analysis",
+      "Message Analyzer",
+      "Paste an SMS to check whether it looks like spam. Analysis runs on this machine; your message is not saved."
+    ) }}
+
+    <div class="card card-input">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="form-label mb-0">Detection model</span>
+          <span class="task-pill"><i class="bi bi-chat-left-text" aria-hidden="true"></i> SMS spam</span>
+        </div>
+
+        <label class="form-label" for="messageInput">SMS message</label>
+        <textarea
+          class="form-control message-textarea"
+          id="messageInput"
+          maxlength="{{ max_message_length }}"
+          placeholder="Paste the text message you want to check…"
+          rows="6"
+          aria-describedby="messageHelp"
+        ></textarea>
+        <div class="input-meta mt-2 d-flex justify-content-between align-items-start flex-wrap gap-3">
+          <span class="text-muted small" id="charCounter" aria-live="polite">0 / {{ '{:,}'.format(max_message_length) }} characters</span>
+          <span class="text-muted small d-flex align-items-center gap-1" id="messageHelp"><i class="bi bi-lock-fill"></i> Local inference only</span>
+        </div>
+
+        <div class="sample-chips mt-3" id="sampleChips" aria-label="Demo messages">
+          <span class="chip-label">Use a demo message</span>
+          <span class="sample-help">Choose an example to fill the message field.</span>
+          <button class="sample-chip" type="button" data-demo="0">
+            <span class="sample-chip-title">Prize offer</span>
+            <span class="sample-chip-text">Congratulations! You have won a FREE cash prize of £500. Claim it now at http://bit.ly/demo</span>
+          </button>
+          <button class="sample-chip" type="button" data-demo="1">
+            <span class="sample-chip-title">Account warning</span>
+            <span class="sample-chip-text">URGENT: Your account will be suspended. Reply immediately with your PIN to verify your identity.</span>
+          </button>
+          <button class="sample-chip" type="button" data-demo="2">
+            <span class="sample-chip-title">Delivery fee</span>
+            <span class="sample-chip-text">Your parcel is waiting. Pay a small delivery fee now to release it: http://delivery.example.test/track</span>
+          </button>
+          <button class="sample-chip" type="button" data-demo="3">
+            <span class="sample-chip-title">Everyday chat</span>
+            <span class="sample-chip-text">Hi, are we still meeting near the station at 6 pm today?</span>
+          </button>
+          <button class="sample-chip" type="button" data-demo="4">
+            <span class="sample-chip-title">Work reminder</span>
+            <span class="sample-chip-text">Reminder: our project check-in is at 10 tomorrow. Please bring the latest draft.</span>
+          </button>
+        </div>
+
+        <form id="analyzerForm" class="d-flex gap-2 mt-3">
+          <button class="btn btn-ghost flex-grow-1" type="button" id="clearBtn"><i class="bi bi-eraser-fill me-1"></i>Clear</button>
+          <button class="btn btn-primary btn-analyze flex-grow-1" type="submit" id="analyzeBtn"><i class="bi bi-shield-check me-1"></i>Analyze message</button>
+        </form>
+
+        <div class="alert alert-danger d-none mt-3" id="analyzerError" role="alert">
+          <i class="bi bi-exclamation-octagon-fill me-2"></i><span id="analyzerErrorText"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right column: result -->
+  <div class="col-lg-4">
+    <div class="card card-result d-none" id="resultPanel" aria-live="polite">
+      <div class="card-header result-header">
+        <span class="badge result-badge" id="resultBadge">—</span>
+      </div>
+      <div class="card-body">
+        <div class="text-center mb-4">
+          <div class="verdict-display">
+            <span class="verdict-label" id="verdictLabel">—</span>
+          </div>
+          <p class="text-muted small mb-3" id="verdictSub"></p>
+
+          <div class="probability-card mb-3">
+            <div class="d-flex justify-content-between mb-1">
+              <span class="text-muted small">Spam probability</span>
+              <span class="fw-semibold" id="resultProbability">—</span>
+            </div>
+            <div class="progress probability-progress" style="height: 8px;" role="progressbar" aria-label="Spam probability" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+              <div class="progress-bar" id="probabilityMeter" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <p class="text-muted small mb-0" id="resultMeta"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why this classification -->
+    <div class="card mt-4 d-none" id="signalsCard">
+      <div class="card-body">
+        <h6 class="card-title text-muted small text-uppercase fw-bold letter-spacing-wide">Why this classification</h6>
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="signals-group">
+          <div class="signals-title text-danger small fw-bold mb-2">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i>Spam-like signals
+              </div>
+              <div id="signalsPositive" class="signals-list"></div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="signals-group">
+          <div class="signals-title text-success small fw-bold mb-2">
+                <i class="bi bi-shield-fill-check me-1"></i>Ham-like signals
+              </div>
+              <div id="signalsNegative" class="signals-list"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted small mt-3">Feature weights show which words support the spam or ham prediction for this model.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-overlay d-none" id="analysisLoading">
+  <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+  <div class="mt-3 text-muted small">Analyzing message…</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/analyzer.js', v='3') }}"></script>
+{% endblock %}

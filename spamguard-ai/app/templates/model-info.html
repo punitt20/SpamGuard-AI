@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_heading %}
+
+{% block title %}Model Info · SpamGuard AI{% endblock %}
+
+{% block content %}
+{{ page_heading(
+  "Model information",
+  "Model Info",
+  "Inspect the deployed SMS spam model, its dataset and metrics, and the candidates compared during evaluation."
+) }}
+
+<div class="row g-4">
+  <div class="col-12">
+    <div class="card mt-4">
+      <div class="card-body">
+        <h2 class="h5 card-title">Configured models</h2>
+        <div id="taskCards"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card"><div class="card-body">
+      <h2 class="h5 card-title">Active model performance</h2>
+      <div id="modelPerformance" class="row g-3"></div>
+    </div></div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card h-100"><div class="card-body">
+      <h2 class="h5 card-title">Training setup</h2>
+      <div id="trainingDetails"></div>
+    </div></div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card h-100"><div class="card-body">
+      <h2 class="h5 card-title">Evaluation notes</h2>
+      <div id="modelNotes"></div>
+    </div></div>
+  </div>
+  <!-- Comparison table -->
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="h5 card-title">Candidate model comparison</h2>
+        <div id="comparisonContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/model-info.js', v='3') }}"></script>
+{% endblock %}
